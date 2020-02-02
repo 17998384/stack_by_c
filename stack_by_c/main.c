@@ -1,6 +1,6 @@
 
-//	Created by ¸ðÕñ¶« on 2020/02/02.
-//  Copyright  2020 ¸ðÕñ¶«. All rights reserved.
+//	Created by è‘›æŒ¯ä¸œ on 2020/02/02.
+//  Copyright  2020 è‘›æŒ¯ä¸œ All rights reserved.
 
 #define _CRT_SECURE_NO_WARNINGS
 #include "stack.h"
@@ -23,9 +23,9 @@ void test(void)
 	char* str1 = (char*)malloc(sizeof(char) * 20);
 	char* str2 = (char*)malloc(sizeof(char) * 20);
 	char* str3 = (char*)malloc(sizeof(char) * 20);
-	strcpy(str1, "²âÊÔ1");
-	strcpy(str2, "²âÊÔ2");
-	strcpy(str3, "²âÊÔ3");
+	strcpy(str1, "æµ‹è¯•1");
+	strcpy(str2, "æµ‹è¯•2");
+	strcpy(str3, "æµ‹è¯•3");
 	push(stack, str1);
 	push(stack, str2);
 	push(stack, str3);
@@ -45,7 +45,7 @@ int main(void)
 {
 	for (int i = 1; i <= 100000; i++)
 	{
-		printf("²âÊÔµÚ%d´Î\n", i);
+		printf("æµ‹è¯•ç¬¬%dæ¬¡\n", i);
 		test1();
 	}
 	return 0;
