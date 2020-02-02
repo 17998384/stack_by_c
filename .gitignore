@@ -3,3 +3,9 @@
 ################################################################################
 
 /.vs
+/stack_by_c/stack_by_c.vcxproj.user
+/stack_by_c/stack_by_c.vcxproj.filters
+/stack_by_c/stack_by_c.vcxproj
+/stack_by_c/stack_by_c.sln
+/stack_by_c/.vs/stack_by_c/v16
+/stack_by_c/Debug
