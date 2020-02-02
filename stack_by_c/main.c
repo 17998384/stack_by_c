@@ -23,9 +23,9 @@ void test(void)
 	char* str1 = (char*)malloc(sizeof(char) * 20);
 	char* str2 = (char*)malloc(sizeof(char) * 20);
 	char* str3 = (char*)malloc(sizeof(char) * 20);
-	strcpy(str1, "测试1");
-	strcpy(str2, "测试2");
-	strcpy(str3, "测试3");
+	strcpy(str1, "测试0");
+	strcpy(str2, "测试1");
+	strcpy(str3, "测试2");
 	push(stack, str1);
 	push(stack, str2);
 	push(stack, str3);
