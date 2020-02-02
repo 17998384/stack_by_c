@@ -2,7 +2,7 @@
 //	Created by ¸ðÕñ¶« on 2020/02/02.
 //  Copyright  2020 ¸ðÕñ¶« All rights reserved.
 
-#define _CRT_SECURE_NO_WARNINGS
+//#define _CRT_SECURE_NO_WARNINGS
 #include "stack.h"
 
 void test1()
