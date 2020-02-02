@@ -1,11 +1,10 @@
 
 //	Created by 葛振东 on 2020/02/02.
 //  Copyright  2020 葛振东. All rights reserved.
+//  具备栈/队列功能(Stack/queue capability)
+//	添加(push),使用栈弹出(pop)使用队列(poll)
 
 #include "stack.h"
-#define INITIAL_SIZE 16				//初始大小
-#define GROWTH_FACTOR  1			//增长因子
-#define MULTIPLE 2					//扩大倍数
 
 struct Stack* new_stack()
 {
@@ -17,58 +16,101 @@ struct Stack* new_stack()
 
 void push(struct Stack* stack, char* value)
 {
-	check_values(stack);
-	stack->values[stack->current++] = value;
+	if (stack->first == NULL)
+	{
+		struct Node* node = new_node(NULL, NULL, value);
+		stack->first = node;
+		stack->last = node;
+	}
+	else
+	{
+		struct Node* node = new_node(stack->last, NULL, value);
+		stack->last->next = node;
+		stack->last = node;
+	}
+	stack->size++;
 }
 
 char* pop(struct Stack* stack)
 {
-	return stack->values[--stack->current];
+	struct Node* node = NULL;
+	if (stack->size == 0)
+	{
+		return NULL;
+	}
+	if (stack->size == 1)
+	{
+		node = stack->last;
+		stack->first = NULL;
+		stack->last = NULL;
+		stack->size--;
+		return node;
+	}
+	node = stack->last;
+	stack->last = node->prev;
+	stack->last->next = NULL;
+	stack->size--;
+	return node;
+}
+
+char* poll(struct Stack* stack)
+{
+	struct Node* node = NULL;
+	if (stack->size == 0)
+	{
+		return NULL;
+	}
+	if (stack->size == 1)
+	{
+		node = stack->last;
+		stack->first = NULL;
+		stack->last = NULL;
+		stack->size--;
+		return node;
+	}
+	node = stack->first;
+	stack->first = node->next;
+	stack->first->prev = NULL;
+	stack->size--;
+	return node;
 }
 
 void del_stack(struct Stack* stack)
 {
-	for (int i = 0, size = stack->current; i < size; i++)
+	if (stack->size == 0)
 	{
-		free(stack->values[i]);
+		free(stack);
+		return;
 	}
-	free(stack->values);
+	struct Node* node = stack->first;
+	struct Node* prev = NULL;
+	while ((node = (prev = node)->next) != NULL)
+	{
+		free_node(prev);
+	}
+	free_node(prev);
 	free(stack);
 }
 
 void stack_prepare(struct Stack* stack)
 {
-	stack->current = 0;
 	stack->size = 0;
-	stack->values = NULL;
+	stack->first = NULL;
+	stack->last = NULL;
 }
 
-void check_values(struct Stack* stack)
+struct Node* new_node(struct Node* prev, struct Node* next, char* value)
 {
-	if (stack->values == NULL)
-	{
-		stack->values = (char**)malloc(sizeof(char*) * INITIAL_SIZE);
-		stack->size = INITIAL_SIZE;
-		return;
-	}
-	//达到倍数需要扩容
-	if (stack->current == stack->size * GROWTH_FACTOR)
-	{
-		dilatation(stack);
-	}
+	struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+	check_malloc_memory(node);
+	node->prev = prev;
+	node->next = next;
+	node->value = value;
+	return node;
 }
 
-void dilatation(struct Stack* stack)
+void free_node(struct Node* node)
 {
-	int new_size = stack->size * MULTIPLE;
-	char** old_value = stack->values;
-	char** new_value = (char**)malloc(sizeof(char*) * new_size);
-	check_malloc_memory(new_value);
-	for (int i = 0, size = stack->size; i < size; i++)
-	{
-		new_value[i] = old_value[i];
-	}
-	stack->size = new_size;
-	stack->values = new_value;
-	free(old_value);
+	free(node->value);
+	free(node);
 }

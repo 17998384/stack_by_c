@@ -10,9 +10,16 @@
 
 struct Stack
 {
-	char** values;
-	int current;
 	int size;
+	struct Node* first;
+	struct Node* last;
+};
+
+struct Node
+{
+	struct Node* prev;
+	struct Node* next;
+	char* value;
 };
 
 /*
@@ -31,7 +38,12 @@ void push(struct Stack* stack, char* value);
 char* pop(struct Stack* stack);
 
 /*
-	del
+	poll
+*/
+char* poll(struct Stack* stack);
+
+/*
+	del_stack
 */
 void del_stack(struct Stack* stack);
 
@@ -41,11 +53,11 @@ void del_stack(struct Stack* stack);
 void stack_prepare(struct Stack* stack);
 
 /*
-	预处理
+	创建node
 */
-void check_values(struct Stack* stack);
+struct Node* new_node(struct Node* prev, struct Node* next, char* value);
 
 /*
-	扩容
+	释放node
 */
-void dilatation(struct Stack* stack);
+void free_node(struct Node* node);
